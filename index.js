@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import Chat from "./models/chat.js";
 import UserChats from "./models/userChats.js";
 import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
+import "dotenv/config";
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -42,11 +43,11 @@ app.get("/api/upload", (req, res) => {
     res.send(result);
 });
 
-// app.get("/api/test", ClerkExpressRequireAuth(), (req, res) => {
-//     const userId = req.auth.userId;
-//     console.log(userId);
-//     res.send("Success!");
-// });
+app.get("/api/test", ClerkExpressRequireAuth(), (req, res) => {
+    const userId = req.auth.userId;
+    console.log(userId);
+    res.send("Success!");
+});
 
 app.post("/api/chats", ClerkExpressRequireAuth(), async (req, res) => {
     const userId = req.auth.userId;
